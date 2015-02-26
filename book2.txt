@@ -1,0 +1,22 @@
+A commit log on each node captures write activity to ensure data durability. Data is also written
+to an in-memory structure, called a “memtable”, and then written to a data file called an
+“SSTable” on disk once the memory structure is full.
+
+
+All writes are automatically partitioned and replicated throughout the cluster.
+Using a process called compaction Cassandra periodically consolidates “SSTables”, discards
+tombstones (an indicator that a column was deleted), and regenerates the index in the
+“SSTable”.
+Client read or writes requests can go to any node in the cluster. When a client
+connects to a node with a request, that node serves as the coordinator for that particular client
+operation. The coordinator acts as a proxy between the client application and the nodes that
+own the data being requested. The coordinator determines which nodes in the ring should get
+the request based on how the cluster is configured.
+
+In Cassandra, the keyspace is the container for your application data, similar to a
+schema in a relational database. Keyspaces are used to group column families together.
+Typically, a cluster has one keyspace per application.
+A keyspace is just an administrative isolation barrier, in the same way that
+relational database instances are separated from one another on the same server.
+Replication is controlled on a per-keyspace basis, so data that has different
+replication requirements should reside in different keyspaces.
