@@ -1,0 +1,27 @@
+title :- cap theorem
+adapted from Ravikiran 
+
+cassandra was developed by the facebook group.The CAP theorem (Brewer) states that you have to pick two of Consistency, Availability, and
+Partition tolerance: You can't have the three at the same time and get an acceptable latency”
+Cassandra values Availability and partitioning tolerance (AP). Cassandra is built to store lots and
+lots and lots of data across a variety of machines arranged in a ring, as opposed to the trend
+within relational database thinking that says “buy a bigger box”.
+
+
+Cassandra forgoes the widely used Master-Slave setup, in favor of a peer-to-peer
+cluster. Cassandra addresses the problem of failures by employing a peer-to-peer distributed
+system where all nodes are the same and data is distributed among all nodes in the cluster.
+Each node exchanges information across the cluster every second.
+
+
+Cassandra's architecture allows any authorized user to connect to any node in any
+data center and access data using the CQL language. CQL uses a similar syntax to SQL. From the
+CQL perspective the database consists of tables.
+
+Cassandra uses a protocol called “gossip” to discover location and state
+information about the other nodes participating in a Cassandra cluster. Gossip is a peer-to-peer
+communication protocol in which nodes periodically exchange state information about
+themselves and about other nodes they know about.
+The gossip process runs every second and exchanges state messages with up to
+three other nodes in the cluster. The nodes exchange information about themselves and about
+the other nodes that they have gossiped about, so all nodes quickly learn about all other nodes
