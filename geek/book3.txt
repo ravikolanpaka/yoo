@@ -1,0 +1,24 @@
+In a relational database, you define tables, which have defined columns. The
+table defines the column names and their data types, and the client application then supplies
+rows conforming to that schema: each row contains the same fixed set of columns.
+In Cassandra, you define column families. Column families define metadata about
+the columns, but the actual columns that make up a row are determined by the client
+application. Each row can have a different set of columns.
+Each column family is made up of “rows” identified by a key, but within a row, any
+number of columns (name/value pairs) can be present, and each row can contain entirely
+different data elements from the other rows within the column family.
+Each row contains conceptually similar data, but not all rows will have the same
+data. This is why any nontrivial application will likely use dozens or hundreds of different
+column families.
+
+The column is the smallest increment of data in Cassandra. It is a tuple containing a name, a
+value and a timestamp. A column must have a name, and the name can be a static label or it
+can be dynamically set when the column is created. It is not required for a column to have a
+value.
+Cassandra uses the column timestamp to determine the most recent update to a
+column. The timestamp is provided by the client application. The latest timestamp always wins
+when requesting data, so if multiple client sessions update the same columns in a row
+concurrently, the most recent update is the one that will eventually persist
+A column can also have an optional expiration date, known in Cassandra as the
+time to live (TTL). TTL columns are marked as deleted (with a tombstone) after the requested
+amount of time has expired.
